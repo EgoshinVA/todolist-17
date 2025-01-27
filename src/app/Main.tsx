@@ -4,9 +4,9 @@ import { Path } from "common/router"
 import { AddItemForm } from "common/components"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { Navigate } from "react-router-dom"
-import { selectIsLoggedIn } from "../features/auth/model/authSelectors"
 import { addTodolistTC } from "../features/todolists/model/todolists-reducer"
 import { Todolists } from "../features/todolists/ui/Todolists/Todolists"
+import { selectIsLoggedIn } from "../features/auth/model/auth-reducer"
 
 export const Main = () => {
   const dispatch = useAppDispatch()
