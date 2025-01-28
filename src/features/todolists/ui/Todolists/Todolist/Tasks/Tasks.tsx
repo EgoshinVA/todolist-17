@@ -2,7 +2,7 @@ import List from "@mui/material/List"
 import { useEffect } from "react"
 import { TaskStatus } from "common/enums"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { fetchTasksTC } from "../../../../model/tasks-reducer"
+import { fetchTasks } from "../../../../model/tasks-reducer"
 import { selectTasks } from "../../../../model/tasksSelectors"
 import { DomainTodolist } from "../../../../model/todolists-reducer"
 import { Task } from "./Task/Task"
@@ -17,7 +17,7 @@ export const Tasks = ({ todolist }: Props) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchTasksTC(todolist.id))
+    dispatch(fetchTasks(todolist.id))
   }, [])
 
   const allTodolistTasks = tasks[todolist.id]
