@@ -23,8 +23,14 @@ const appSlice = createSlice({
       state.error = action.payload.error
     }),
   }),
+  selectors: {
+    selectThemeMode: state => state.themeMode,
+    selectAppStatus: state => state.status,
+    selectAppError: state => state.error
+  }
 })
 
 export const {changeTheme, setAppError, setAppStatus} = appSlice.actions;
+export const {selectThemeMode, selectAppStatus, selectAppError} = appSlice.selectors
 
 export default appSlice.reducer;

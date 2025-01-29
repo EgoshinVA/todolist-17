@@ -6,9 +6,9 @@ import { getTheme } from "common/theme"
 import { useEffect } from "react"
 import { Outlet } from "react-router-dom"
 import { initializeAppTC, selectIsInitialized } from "../features/auth/model/auth-reducer"
-import { selectThemeMode } from "./appSelectors"
 import CircularProgress from "@mui/material/CircularProgress"
 import s from "./App.module.css"
+import { selectThemeMode } from "./app-reducer"
 
 export const App = () => {
   const themeMode = useAppSelector(selectThemeMode)
