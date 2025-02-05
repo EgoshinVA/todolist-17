@@ -2,7 +2,7 @@ import { ResultCode } from "common/enums"
 import { handleServerAppError } from "common/utils/handleServerAppError"
 import { handleServerNetworkError } from "common/utils/handleServerNetworkError"
 import { RequestStatus, setAppStatus } from "../../../app/app-reducer"
-import { todolistsApi } from "../api/todolistsApi"
+import { _todolistsApi } from "../api/todolistsApi"
 import { Todolist } from "../api/todolistsApi.types"
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit"
 import { clearTasksAndTodolists } from "common/actions/common.actions"
@@ -36,7 +36,7 @@ const todolistsSlice = createSliceWithThunks({
         async (undefined, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setAppStatus({ status: "loading" }))
-            const res = await todolistsApi.getTodolists()
+            const res = await _todolistsApi.getTodolists()
             dispatch(setAppStatus({ status: "succeeded" }))
             return res.data
           } catch (error: any) {
@@ -54,7 +54,7 @@ const todolistsSlice = createSliceWithThunks({
         async (title: string, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setAppStatus({ status: "loading" }))
-            const res = await todolistsApi.createTodolist(title)
+            const res = await _todolistsApi.createTodolist(title)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setAppStatus({ status: "succeeded" }))
               return { todolist: res.data.data.item }
@@ -78,7 +78,7 @@ const todolistsSlice = createSliceWithThunks({
           try {
             dispatch(setAppStatus({ status: "loading" }))
             dispatch(changeTodolistEntityStatus({ id, entityStatus: "loading" }))
-            const res = await todolistsApi.deleteTodolist(id)
+            const res = await _todolistsApi.deleteTodolist(id)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setAppStatus({ status: "succeeded" }))
               return { id }
@@ -105,7 +105,7 @@ const todolistsSlice = createSliceWithThunks({
         async (arg: { id: string; title: string }, { dispatch, rejectWithValue }) => {
           try {
             dispatch(setAppStatus({ status: "loading" }))
-            const res = await todolistsApi.updateTodolist(arg)
+            const res = await _todolistsApi.updateTodolist(arg)
             if (res.data.resultCode === ResultCode.Success) {
               dispatch(setAppStatus({ status: "succeeded" }))
               return arg
