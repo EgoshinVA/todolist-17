@@ -4,11 +4,19 @@ import IconButton from "@mui/material/IconButton"
 import LinearProgress from "@mui/material/LinearProgress"
 import Switch from "@mui/material/Switch"
 import Toolbar from "@mui/material/Toolbar"
-import { changeTheme, selectAppStatus, selectThemeMode } from "../../../app/app-reducer"
+import {
+  changeTheme,
+  selectAppStatus,
+  selectIsLoggedIn,
+  selectThemeMode,
+  setIsLoggedIn,
+} from "../../../app/app-reducer"
 import { useAppDispatch, useAppSelector } from "common/hooks"
 import { getTheme } from "common/theme"
 import { MenuButton } from "common/components"
-import { logoutTC, selectIsLoggedIn } from "../../../features/auth/model/auth-reducer"
+import { useLogoutMutation } from "../../../features/auth/api/authAPI"
+import { ResultCode } from "common/enums"
+import { clearTasksAndTodolists } from "common/actions/common.actions"
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -19,12 +27,20 @@ export const Header = () => {
 
   const theme = getTheme(themeMode)
 
+  const [logout] = useLogoutMutation()
+
   const changeModeHandler = () => {
-    dispatch(changeTheme({themeMode: themeMode === "light" ? "dark" : "light"}))
+    dispatch(changeTheme({ themeMode: themeMode === "light" ? "dark" : "light" }))
   }
 
   const logoutHandler = () => {
-    dispatch(logoutTC())
+    logout().then((res) => {
+      if (res.data?.resultCode === ResultCode.Success) {
+        dispatch(setIsLoggedIn(false))
+        localStorage.removeItem("sn-token")
+        dispatch(clearTasksAndTodolists({}, []))
+      }
+    })
   }
 
   return (

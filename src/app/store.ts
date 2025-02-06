@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit"
-import authReducer from "../features/auth/model/auth-reducer"
 import appReducer from "./app-reducer"
 import todolistsReducer from "../features/todolists/model/todolists-reducer"
 import tasksReducer from "../features/todolists/model/tasks-reducer"
@@ -11,7 +10,6 @@ export const store = configureStore({
     tasks: tasksReducer,
     todolists: todolistsReducer,
     app: appReducer,
-    auth: authReducer,
     [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
