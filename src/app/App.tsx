@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import CircularProgress from "@mui/material/CircularProgress"
 import s from "./App.module.css"
-import { selectThemeMode, setIsLoggedIn } from "./app-reducer"
+import { selectThemeMode, setIsLoggedIn } from "./appSlice"
 import { useAuthMeQuery } from "../features/auth/api/authAPI"
 import { ResultCode } from "common/enums"
 
